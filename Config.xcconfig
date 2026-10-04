@@ -1,0 +1,13 @@
+// Signing settings. Put your own Apple team in Local.xcconfig next to this file
+// (it's gitignored), e.g.
+//
+//   DEVELOPMENT_TEAM = ABCDE12345
+//
+// Find your team ID in Xcode → Settings → Accounts, or just pick a team in
+// Signing & Capabilities, which works too. The bundle ID is derived from the
+// team so it's unique for everyone who builds this.
+
+DEVELOPMENT_TEAM =
+PRODUCT_BUNDLE_IDENTIFIER = app.justpost.$(DEVELOPMENT_TEAM)
+
+#include? "Local.xcconfig"
