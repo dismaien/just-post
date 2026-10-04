@@ -22,7 +22,7 @@
     html.jp-home:not(.jp-peek) [data-testid="primaryColumn"] svg[aria-label="Pull to refresh"],
     html.jp-home [data-testid="TopNavBar"],
     html.jp-home div:has(> [data-testid="TopNavBar"]),
-    [data-testid="cellInnerDiv"]:has([data-testid="placementTracking"]),
+    [data-jp-ad],
     html.jp-home.jp-peek [data-testid="primaryColumn"] section[role="region"] [data-testid="cellInnerDiv"]:not([data-jp-ok]),
     [data-testid="sidebarColumn"] {
       display: none !important;
@@ -296,7 +296,7 @@
   }
 
   function postId(cell) {
-    if (cell.querySelector('[data-testid="placementTracking"]')) return null; // ad
+    if (cell.hasAttribute('data-jp-ad')) return null;
     const link = cell.querySelector('article a[href*="/status/"] time')?.closest('a');
     return link?.getAttribute('href').match(/\/status\/(\d+)/)?.[1] || null;
   }
@@ -431,6 +431,25 @@
     return realOpen.apply(this, arguments);
   };
 
+  // --- ads -------------------------------------------------------------------
+  // Promoted posts carry a visible "Ad" label next to the author ("Promoted" on
+  // older builds). Don't go by X's tracking markers: those wrap every video too.
+
+  function isAd(cell) {
+    for (const span of cell.querySelectorAll('article span')) {
+      const text = span.textContent;
+      if ((text === 'Ad' || text === 'Promoted') && !span.closest('[data-testid="tweetText"]')) return true;
+    }
+    return false;
+  }
+
+  function markAds() {
+    // Cells get recycled for other posts as you scroll, so check them all every time.
+    for (const cell of document.querySelectorAll('[data-testid="cellInnerDiv"]')) {
+      cell.toggleAttribute('data-jp-ad', isAd(cell));
+    }
+  }
+
   // --- main loop -----------------------------------------------------------
 
   let wasHome = false;
@@ -452,6 +471,7 @@
     document.documentElement.classList.toggle('jp-home', home);
     document.documentElement.classList.toggle('jp-card', isHome(path));
 
+    markAds();
     if (peek && Date.now() > peek.until) endPeek();
     document.documentElement.classList.toggle('jp-peek', Boolean(peek));
     if (peek && isHome(path)) limitFeed();
