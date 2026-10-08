@@ -29,7 +29,19 @@ you need a mac with [xcode](https://apps.apple.com/app/xcode/id497799835) 16 or 
 3. plug in your iphone, pick it at the top of the window, press ▶
 4. first time only, on the phone: turn on **settings → privacy & security → developer mode**, and if it asks, trust yourself under **settings → general → vpn & device management**
 
-with a free apple id the app stops opening after 7 days. plug in and press ▶ again, and you stay logged in. a paid apple developer account ($99/yr) makes it last a year.
+with a free apple id the app stops opening after 7 days (the phone says "just post is no longer available"). plug in and press ▶ again, and you stay logged in. a paid apple developer account ($99/yr) makes it last a year. or see the next section to have it renewed for you.
+
+## keep it alive without plugging in
+
+[altstore](https://altstore.io) re-signs sideloaded apps over wifi by itself, so you never see the 7 day expiry. one time setup:
+
+1. install altserver on your mac (from altstore.io) and altstore on your phone (plug in once, altserver menu bar icon → **install altstore** → your phone). it asks for your apple id so it can sign apps with it.
+2. in the repo folder, run `sh make-ipa.sh`. it builds `build/ipa/JustPost.ipa` with xcode.
+3. airdrop or email the .ipa to your phone, open it in altstore (my apps → **+**), or drag it onto the altserver menu bar icon while the phone is plugged in.
+
+after that, as long as your mac is on and on the same wifi as the phone every few days, altstore refreshes the app before it expires. you can also tap **refresh all** in altstore any time. if you have a free apple id you can have 3 sideloaded apps at once, altstore itself included.
+
+if you'd rather keep using xcode but lose the cable: window → devices and simulators → select your phone → tick **connect via network**. pressing ▶ then works over wifi, but it's still a click every week.
 
 if you'd rather not have your team written into the project file, put it in a `Local.xcconfig` next to `Config.xcconfig` instead (that file is gitignored):
 
