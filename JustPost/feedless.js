@@ -21,12 +21,14 @@
     html.jp-home:not(.jp-peek) [data-testid="primaryColumn"] section[role="region"],
     html.jp-home:not(.jp-peek) [data-testid="primaryColumn"] svg[aria-label="Pull to refresh"],
     html.jp-home [data-testid="TopNavBar"],
-    html.jp-home div:has(> [data-testid="TopNavBar"]),
     [data-jp-ad],
     html.jp-home.jp-peek [data-testid="primaryColumn"] section[role="region"] [data-testid="cellInnerDiv"]:not([data-jp-ok]),
     [data-testid="sidebarColumn"] {
       display: none !important;
     }
+    /* Kept apart from the list above: ios before 15.4 doesn't know :has() and would
+       throw away the whole rule it appears in. */
+    html.jp-home div:has(> [data-testid="TopNavBar"]) { display: none !important; }
 
     /* While peeking: clip the (virtualized) timeline right below the allowed posts,
        which also hides X's infinite-scroll loader so it stops fetching more. */

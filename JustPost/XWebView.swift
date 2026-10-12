@@ -41,7 +41,9 @@ struct XWebView: UIViewRepresentable {
         web.isOpaque = false
         web.backgroundColor = .systemBackground
         #if DEBUG
-        web.isInspectable = true // lets Safari's Develop menu on a Mac inspect the page
+        if #available(iOS 16.4, *) {
+            web.isInspectable = true // lets Safari's Develop menu on a Mac inspect the page
+        }
         #endif
 
         let refresh = UIRefreshControl()

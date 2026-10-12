@@ -22,7 +22,7 @@ the app itself has no servers, analytics or tracking of its own. it talks to x t
 
 ## put it on your iphone
 
-you need a mac with [xcode](https://apps.apple.com/app/xcode/id497799835) 16 or newer (built with xcode 26), an apple id, and an iphone on ios 17 or newer. it isn't on the app store.
+you need a mac with [xcode](https://apps.apple.com/app/xcode/id497799835) 16 or newer (built with xcode 26), an apple id, and an iphone on ios 15 or newer (so any iphone from the 6s on, including every iphone 13). it isn't on the app store.
 
 1. download this repo and open `JustPost.xcodeproj` in xcode
 2. click **JustPost** in the left sidebar → the **JustPost** target → **signing & capabilities** → pick your apple id under **team** (add it in xcode → settings → accounts if it's not there)
